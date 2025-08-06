@@ -1,0 +1,14 @@
+package com.module.util;
+
+public class RazorpayUtil {
+	private static final String RAZORPAY_KEY_ID = "rzp_test_7z6r1q0WQ4v5bZ";
+	private static final String RAZORPAY_KEY_SECRET = "8rQp9d7mI3v0g6Z4x9a8b2c5";
+	
+	public static String getRazorpayKeyId() {
+		return RAZORPAY_KEY_ID;
+	}
+
+	public static String getRazorpayKeySecret() {
+		return RAZORPAY_KEY_SECRET;
+	}
+}

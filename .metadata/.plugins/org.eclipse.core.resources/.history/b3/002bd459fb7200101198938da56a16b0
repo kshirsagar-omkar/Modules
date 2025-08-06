@@ -1,0 +1,45 @@
+package com.module.payment;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/payment-callback")
+public class PaymentCallback extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+   
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        
+//        response.sendRedirect("index.jsp");
+    }
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String razorpayPaymentId = request.getParameter("razorpay_payment_id");
+        String razorpayOrderId = request.getParameter("razorpay_order_id");
+        String razorpaySignature = request.getParameter("razorpay_signature");
+
+
+        
+        try {
+        	 
+         }catch (RazorpayExcption e) {
+             // Signature verification failed
+             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+             response.getWriter().write("Payment verification failed!");
+             e.printStackTrace();
+         } catch (Exception e) {
+             // Signature verification failed
+             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+             response.getWriter().write("Payment verification failed!");
+             e.printStackTrace();
+         }
+        
+	}
+
+}

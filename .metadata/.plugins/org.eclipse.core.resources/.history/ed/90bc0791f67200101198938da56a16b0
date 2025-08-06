@@ -1,0 +1,36 @@
+package com.module.payment;
+
+import java.io.IOException;
+
+import com.module.util.RazorpayUtil;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class CreateOrder
+ */
+@WebServlet("/create-order")
+public class CreateOrder extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		
+		RazorpayClient razorpay = new RazorpayClient( RazorpayUtil.getRazorpayKeyId(), RazorpayUtil.getRazorpayKeySecret() );
+		
+		
+	}
+
+}

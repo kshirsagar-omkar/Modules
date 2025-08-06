@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+/home/omkar/Documents/omkar/Modules/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+2731246425.index
+3016293974.index
+2361050461.index
+257744275.index
+2098061429.index
+1299508602.index
+3804826868.index

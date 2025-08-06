@@ -1,0 +1,75 @@
+package com.module.payment;
+
+import java.io.IOException;
+
+import org.json.JSONObject;
+
+import com.module.util.RazorpayUtil;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class CreateOrder
+ */
+@WebServlet("/create-order")
+public class CreateOrder extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String amountParam = request.getParameter("amount");
+		if (amountParam == null || amountParam.trim().isEmpty()) {
+	        response.getWriter().println("Amount parameter is required");
+	        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        return;
+	    }
+	    
+		
+
+		
+		try {
+			int amount = Integer.parseInt(amountParam);
+	        if (amount <= 0) {
+	            response.getWriter().println("Amount must be positive");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	            return;
+	        }
+	        
+			RazorpayClient razorpay = new RazorpayClient( RazorpayUtil.getRazorpayKeyId(), RazorpayUtil.getRazorpayKeySecret() );
+			
+			
+			JSONObject orderRequest = new JSONObject();
+			orderRequest.put("amount", amount * 100); // Amount in paise
+			orderRequest.put("currency", "INR");
+			
+			
+			Order order = razorpay.orders.create( orderRequest );
+		
+			response.getWriter().println(order.toString());
+	
+		} catch (RazorpayException e) {
+			e.printStackTrace();
+			response.getWriter().println("Error creating order: " + e.getMessage());
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		} catch (NumberFormatException e) {
+	        response.getWriter().println("Invalid amount format");
+	        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        return;
+	    }
+
+	}
+}

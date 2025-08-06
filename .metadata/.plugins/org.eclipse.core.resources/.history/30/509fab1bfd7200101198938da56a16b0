@@ -1,0 +1,5 @@
+package com.module.payment;
+
+public class RazorpayDemoApplication {
+
+}
